@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Jadwal Kuliah Kolaboratif</title>
+    <style>
+        :root {
+            --cafe-noir: #4C3D19;
+            --kombu-green: #354024;
+            --moss-green: #889063;
+            --tan: #CFBB99;
+            --bone: #E5D7C4;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bone);
+            color: var(--cafe-noir);
+            margin: 0;
+            padding: 12px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 12px 20px 20px 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(76, 61, 25, 0.08);
+            box-sizing: border-box;
+            border: 1px solid var(--tan);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: var(--cafe-noir);
+            text-align: center;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--moss-green);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .intro-box {
+            background: rgba(207, 187, 153, 0.2);
+            border-left: 4px solid var(--kombu-green);
+            padding: 12px 14px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.83rem;
+            color: var(--cafe-noir);
+            margin-bottom: 22px;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        h2 {
+            font-size: 1.15rem;
+            color: var(--kombu-green);
+            margin-top: 2px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--bone);
+            padding-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .emo-badge {
+            font-size: 0.9rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .course-card {
+            background: #ffffff;
+            border: 1px solid var(--tan);
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .course-card:active {
+            background-color: rgba(229, 215, 196, 0.3);
+        }
+
+        .course-card input[type="checkbox"] {
+            margin-top: 4px;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--kombu-green);
+            cursor: pointer;
+        }
+
+        .course-info h3 {
+            margin: 0 0 4px 0;
+            font-size: 0.95rem;
+            color: var(--kombu-green);
+        }
+
+        .course-info p {
+            margin: 2px 0;
+            font-size: 0.82rem;
+            color: #555;
+        }
+
+        form {
+            background: rgba(229, 215, 196, 0.25);
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 1px solid var(--tan);
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--cafe-noir);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--tan);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 0.9rem;
+            background: #fff;
+            color: var(--cafe-noir);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--kombu-green);
+            box-shadow: 0 0 0 3px rgba(53, 64, 36, 0.15);
+        }
+
+        .btn-primary {
+            background: var(--kombu-green);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            margin-top: 6px;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:active {
+            background: var(--cafe-noir);
+        }
+
+        .info-notice {
+            font-size: 0.78rem;
+            color: var(--cafe-noir);
+            background: rgba(136, 144, 99, 0.15);
+            border-left: 3px solid var(--moss-green);
+            padding: 8px 10px;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+
+        #loading {
+            text-align: center;
+            color: var(--moss-green);
+            font-style: italic;
+            font-size: 0.9rem;
+            padding: 20px;
+        }
+
+        @media (min-width: 640px) {
+            body { padding: 30px; }
+            .container { padding: 30px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>
+        <span style="font-size: 1rem; display: block; margin-bottom: 2px;">𓇼 ⋆.˚ 𓆉 𓆝 𓆡⋆.˚ 𓇼</span>
+        Portal Jadwal Kuliah
+    </h1>
+    <div class="subtitle">Sistem Kolaborasi Cloud Serverless</div>
+
+    <div class="intro-box">
+        <span class="emo-badge">(ᴗ͈ˬᴗ͈)ก</span> <strong>Tentang Portal Ini:</strong> Sistem manajemen jadwal berbasis cloud berarsitektur serverless (AWS Lambda & DynamoDB) yang dirancang untuk mendukung kolaborasi jadwal secara dinamis dan transparan.
+    </div>
+
+    <!-- Form Pilih Jadwal & Berlangganan -->
+    <form id="subscribe-form">
+        <h2><span class="emo-badge">★</span> Pilih & Berlangganan Jadwal</h2>
+        <div class="info-notice">
+            Masukkan emailmu, centang mata kuliah yang diambil, lalu simpan. Kamu akan menerima rekap jadwal langsung ke email!
+        </div>
+        <div class="form-group">
+            <label>𓂃✍︎ Alamat Email Kamu:</label>
+            <input type="email" id="userEmail" placeholder="npm@mhs.ubharajaya.ac.id" required>
+        </div>
+        
+        <label>◝(ᵔᵕᵔ)◜ Pilih Mata Kuliah:</label>
+        <div id="loading">Memuat daftar mata kuliah dari Cloud...</div>
+        <div id="checkbox-schedule-list"></div>
+
+        <button type="submit" class="btn-primary" style="margin-top: 16px;">Simpan Pilihan Jadwal Saya</button>
+    </form>
+
+    <!-- Form Tambah Jadwal Baru (Crowdsource) -->
+    <form id="add-course-form">
+        <h2><span class="emo-badge" style="font-size: 0.95rem;">(˘ᴗ˘)</span> Tambah Mata Kuliah Baru</h2>
+        <div class="form-group">
+            <label>Kode Matkul:</label>
+            <input type="text" id="courseId" placeholder="Contoh: INFO-9999" required>
+        </div>
+        <div class="form-group">
+            <label>Nama Mata Kuliah:</label>
+            <input type="text" id="courseName" placeholder="Contoh: Cloud Native" required>
+        </div>
+        <div class="form-group">
+            <label>Kelompok Kelas:</label>
+            <input type="text" id="classGroup" value="F7B1-Custom" required>
+        </div>
+        <div class="form-group">
+            <label>Hari:</label>
+            <select id="day">
+                <option value="Senin">Senin</option>
+                <option value="Selasa">Selasa</option>
+                <option value="Rabu">Rabu</option>
+                <option value="Kamis">Kamis</option>
+                <option value="Jumat">Jumat</option>
+                <option value="Sabtu">Sabtu</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Waktu (Jam):</label>
+            <input type="text" id="time" placeholder="Contoh: 13:00 - 15:30" required>
+        </div>
+        <div class="form-group">
+            <label>Ruangan:</label>
+            <input type="text" id="room" placeholder="Contoh: Lab Jaringan" required>
+        </div>
+        <button type="submit" class="btn-primary">Tambah ke Bank Data</button>
+    </form>
+</div>
+
+<script>
+    const API_URL = "https://gljmhcbysi.execute-api.ap-southeast-2.amazonaws.com/schedule";
+
+    async function fetchCourses() {
+        try {
+            const response = await fetch(API_URL);
+            const courses = await response.json();
+            document.getElementById('loading').style.display = 'none';
+            
+            let listHtml = '';
+            courses.forEach(course => {
+                listHtml += `
+                    <div class="course-card">
+                        <input type="checkbox" name="selectedCourse" value="${course.CourseId}" id="chk-${course.CourseId}">
+                        <div class="course-info">
+                            <h3>${course.CourseName} (${course.CourseId})</h3>
+                            <p><strong>Kelas:</strong> ${course.ClassGroup || '-'}</p>
+                            <p><strong>Hari/Jam:</strong> ${course.Day}, ${course.Time}</p>
+                            <p><strong>Ruang:</strong> ${course.Room}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('checkbox-schedule-list').innerHTML = listHtml;
+        } catch (error) {
+            document.getElementById('loading').innerText = "Gagal memuat data jadwal dari Cloud.";
+        }
+    }
+
+ document.getElementById('subscribe-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const emailInput = document.getElementById('userEmail') || document.querySelector('input[type="email"]');
+        if (!emailInput || !emailInput.value) {
+            alert("Mohon masukkan alamat email terlebih dahulu!");
+            return;
+        }
+        const email = emailInput.value;
+        
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        const courses = Array.from(checkboxes).map(cb => cb.value).filter(Boolean);
+        
+        console.log("Email:", email);
+        console.log("Courses terpilih:", courses);
+        
+        if (courses.length === 0) {
+            alert("Pilih minimal satu mata kuliah!");
+            return;
+        }
+        
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'subscribe',
+                    Email: email,
+                    Courses: courses
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+                alert("Berhasil menyimpan pilihan jadwal!\n\nSilakan klik tombol 'Hubungkan ke Google Calendar' di bawah untuk menyinkronkan kalender.");
+                
+                if (result.googleAuthUrl) {
+                    let container = document.getElementById('gcal-container');
+                    if (!container) {
+                        container = document.createElement('div');
+                        container.id = 'gcal-container';
+                        container.style.marginTop = '15px';
+                        document.getElementById('subscribe-form').appendChild(container);
+                    }
+                    container.innerHTML = `
+                        <a href="${result.googleAuthUrl}" target="_blank" style="display: block; text-align: center; background-color: #354024; color: white; padding: 12px; text-decoration: none; border-radius: 8px; font-weight: 600; margin-top: 10px; font-size: 0.95rem; box-sizing: border-box;">
+                            ╰┈➤ Hubungkan ke Google Calendar
+                        </a>
+                    `;
+                }
+            } else {
+                alert("Gagal: " + (result.message || "Terjadi kesalahan"));
+            }
+        } catch (err) {
+            console.error("Error:", err);
+            alert("Terjadi kesalahan koneksi ke server.");
+        }
+    });
+
+    document.getElementById('add-course-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const payload = {
+            action: "add_course",
+            CourseId: document.getElementById('courseId').value,
+            CourseName: document.getElementById('courseName').value,
+            ClassGroup: document.getElementById('classGroup').value,
+            Day: document.getElementById('day').value,
+            Time: document.getElementById('time').value,
+            Room: document.getElementById('room').value
+        };
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            alert(result.message || "Mata kuliah berhasil ditambahkan!");
+            location.reload();
+        } catch (error) {
+            alert("Terjadi kesalahan saat menambah mata kuliah.");
+        }
+    });
+
+    fetchCourses();
+</script>
+
+</body>
+</html>
